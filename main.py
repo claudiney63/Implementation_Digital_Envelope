@@ -2,8 +2,9 @@ from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import padding, rsa
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
-from Crypto.Cipher import PKCS1_OAEP
-from Crypto.PublicKey import RSA
+# from Crypto.Cipher import PKCS1_OAEP
+# from Crypto.PublicKey import RSA
+import os
 
 
 def generate_key_pair():
@@ -27,7 +28,7 @@ def generate_key_pair():
 
 def create_envelope(plain_file, recipient_public_key, symmetric_algorithm):
     # Generate temporary symmetric key
-    symmetric_key = algorithms.AES.generate_key()
+    symmetric_key = os.urandom(32)
     
     # Read recipient's public key
     recipient_public_key = serialization.load_pem_public_key(
