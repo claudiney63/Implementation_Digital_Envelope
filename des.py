@@ -3,7 +3,7 @@ from cryptography.hazmat.primitives.ciphers import Cipher, modes, algorithms
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import padding
 
-def des_encrypt(key, plaintext):
+def encrypt(key, plaintext):
     # Gerar uma chave de 8 bytes para o DES
     key = key[:8]  # Se o tamanho da chave for maior que 8 bytes, pegamos apenas os primeiros 8 bytes
 
@@ -27,7 +27,7 @@ def des_encrypt(key, plaintext):
 
     return iv + ciphertext
 
-def des_decrypt(key, ciphertext):
+def decrypt(key, ciphertext):
     # Extrair o IV do início do texto cifrado
     iv = ciphertext[:8]
     ciphertext = ciphertext[8:]
@@ -51,12 +51,16 @@ def des_decrypt(key, ciphertext):
     return plaintext
 
 # Exemplo de uso
-key = os.urandom(32)
-plaintext = b'Ellen quer chocolate?'
+def generate_key(size):
+    return os.urandom(size)
 
-ciphertext = des_encrypt(key, plaintext)
-decrypted_text = des_decrypt(key, ciphertext)
+if __name__ == '__main__':
+    key = generate_key(32)
+    plaintext = b'Ellem quer chocolate?'
 
-print("Chave DES:", key)
-print("Texto cifrado:", ciphertext)
-print("Texto descriptografado:", decrypted_text)
+    ciphertext = encrypt(key, plaintext)
+    decrypted_text = decrypt(key, ciphertext)
+
+    print("Chave DES:", key)
+    print("Texto cifrado:", ciphertext)
+    print("Texto descriptografado:", decrypted_text)

@@ -1,11 +1,11 @@
 import os
 
-def generate_rc4_key():
-    key_length = 16  # Define o tamanho da chave em bytes
+def generate_rc4_key(key_length):
+    #key_length = 16  # Define o tamanho da chave em bytes
     key = os.urandom(key_length)  # Gera uma sequência de bytes aleatórios como chave
     return key
 
-def rc4(key, plaintext):
+def encrypt_decrypt(key, plaintext):
     S = list(range(256))
     j = 0
     out = []
@@ -25,28 +25,22 @@ def rc4(key, plaintext):
 
     return bytes(out)
 
-# Gerar a chave RC4
-#rc4_key = generate_rc4_key()
-rc4_key = bytes.fromhex('22f0481e9fa3d7d86e303f8d9fd6742b')
+# def generate_key(size):
+#     return os.urandom(size)
 
-# Mensagem a ser criptografada
-mensagem_original = "Essa é uma mensagem de teste para criptografia com RC4."
+if __name__ == '__main__':
 
-# Convertendo a mensagem para bytes
-plaintext = mensagem_original.encode()
+    rc4_key = generate_rc4_key()
+    mensagem_original = "Essa é uma mensagem de teste para criptografia com RC4."
+    plaintext = mensagem_original.encode()
+    ciphertext = rc4(rc4_key, plaintext)
+    #ciphertext = bytes.fromhex('1ebd618d8ebdf84e8037de076f9e3eed3d8d9405d6abcaddf9de9eb5881f3993334e56e08338693a7065da0b3a6b228b4fb5088d5d5672ce')
+    decrypted_text = rc4(rc4_key, ciphertext)
 
-# Criptografar a mensagem
-#ciphertext = rc4(rc4_key, plaintext)
-ciphertext = bytes.fromhex('1ebd618d8ebdf84e8037de076f9e3eed3d8d9405d6abcaddf9de9eb5881f3993334e56e08338693a7065da0b3a6b228b4fb5088d5d5672ce')
+    # Converter a mensagem descriptografada de bytes para string
+    mensagem_decifrada = decrypted_text.decode()
 
-# Descriptografar a mensagem
-decrypted_text = rc4(rc4_key, ciphertext)
-
-# Converter a mensagem descriptografada de bytes para string
-mensagem_decifrada = decrypted_text.decode()
-
-# Exibindo os resultados
-print("Mensagem Original:", mensagem_original)
-print("Chave RC4:", rc4_key.hex())
-print("Mensagem Criptografada:", ciphertext.hex())
-print("Mensagem Decifrada:", mensagem_decifrada)
+    print("Mensagem Original:", mensagem_original)
+    print("Chave RC4:", rc4_key.hex())
+    print("Mensagem Criptografada:", ciphertext.hex())
+    print("Mensagem Decifrada:", mensagem_decifrada)
