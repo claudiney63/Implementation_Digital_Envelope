@@ -3,3 +3,24 @@ Um dos propósitos do trabalho é que a implementação funcione como um protoco
 
 ![image](https://github.com/claudiney63/Implementation_Digital_Envelope/assets/40923082/17bf6852-d6cd-4d56-9869-63e485e0a985)
 
+# Implementação de um programa de assinatura digital
+
+# Grupo:
+Clauidney Ryan da Silva
+Ellem Almeida Amorim
+Vinícius Alves de Moura
+
+# Execução
+Preparação do ambiente
+
+python -m venv .venv
+
+# Ativação do ambinte virtual
+# Windows >
+.venv/Scripts/activate
+# Linux >
+source .venv/bin/activate
+
+python -m pip install --upgrade pip
+
+pip install -r requirements.txt
