@@ -7,6 +7,8 @@ Um dos propósitos do trabalho é que a implementação funcione como um protoco
 
 # Grupo:
 Clauidney Ryan da Silva
+Ellem Almeida Amorim
+Vinícius Alves de Moura
 
 # Execução
 Preparação do ambiente
