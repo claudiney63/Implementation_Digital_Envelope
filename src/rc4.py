@@ -1,6 +1,6 @@
 import os
 
-def generate_rc4_key(key_length):
+def generate_rc4_key(key_length=16):
     #key_length = 16  # Define o tamanho da chave em bytes
     key = os.urandom(key_length)  # Gera uma sequência de bytes aleatórios como chave
     return key
