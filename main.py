@@ -1,12 +1,12 @@
 import os
-import envelope
-import aes
-import des
-import rc4
-import rsa
-import utils
+import src.envelope as envelope
+import src.aes as aes
+import src.des as des
+import src.rc4 as rc4
+import src.rsa as rsa
+import src.utils as utils
 
-def main():
+def menu():
     menu = """
 0 - Criar um par de chaves RSA
 1 - Criar um envelope;
@@ -24,32 +24,37 @@ def main():
 
         index = input("Selecione uma opção:\n" + "\n".join(options) + "\n")
         
+        # Criar par de chaves
         if index == "0":
             filepath = input("Informe em que pasta ficarão as chaves (deixar vazio para pasta atual):\n~ ")
             prefixo = input("Informe o prefixo do arquivo (opcional):\n~ ")
+            
             rsa.generate_key_pair(prefixo, filepath)
+            print(f"\nPar de chaves criado\n")
+
             input("Tecle enter para voltar ao menu.")
-                
+
+        # Criar envelope
         if index == "1":
             #criar arquivo em claro
 			#arquivo da chave RSA pública
 			#algoritmo
-            file_path = input("Informe o arquivo do envelope a ser criado:\n~ ")
-            key_path = input(
-                "Informe a chave pública que deseja utilizar:\n~ "
-            )
-            encrypt_algorithm = input(
-                "Qual algoritmo deseja usar: [AES, DES, RC4]:\n> "
-            )
-            
-            file = utils.open_file(file_path)
-            public_key = rsa.load_public_key(key_path)
-            envelope.create_envelope(file, public_key, encrypt_algorithm)
+            plain_file_path = input("Informe o arquivo que deseja criptografar:\n~ ")
+            public_key_path = input("Informe a chave pública que deseja utilizar:\n~ ")
+            encrypt_algorithm = input("Qual algoritmo deseja usar: [AES, DES, RC4]:\n> ")
 
-            #garantir que o envelope foi criado
+            try:
+                envelope.create_envelope(plain_file_path, public_key_path, encrypt_algorithm)
+            except Exception as e:
+                print(e)
+            else:
+                print("Envelope cirado com sucesso\n")
+
             input("Tecle enter para voltar ao menu.")
+        
+        # Abrir envelope
         if index == "2":
-            cipher_file_path = input("Informe o caminho até o arquivo original do envelope:\n~ ")
+            cipher_file_path = input("Informe o caminho até o arquivo criptografado do envelope:\n~ ")
             cipher_key_path = input("Informe a chave criptografada:\n~ ")
             cipher_file = utils.open_file(cipher_file_path)
             cipher_key = utils.open_file(cipher_key_path)
@@ -71,10 +76,12 @@ def main():
                 #     print("O envelope não é válido.")
 
             input("Tecle enter para voltar ao menu.")
+        
+        # Sair
         if index == "3":
             print("Programa finalizado.")
             return
 
 
 if __name__ == "__main__":
-    main()
+    menu()

@@ -10,9 +10,17 @@ def save_file(file_path, data):
 # Entrada: caminho para o arquivo
 # Saída: arquivo lido
 def open_file(file_path):
-    file = open(file_path, 'rb')
-    return file.read()
+    try:
+        file = open(file_path, 'rb')
+        return file.read()
+    except FileNotFoundError:
+        raise FileNotFoundError("Arquivo não encontrado")
+    except Exception as e:
+        print(e)
     
 
 if __name__ == '__main__':
-    open_file("testa.txt")
+    try:
+        open_file("testa.txt")
+    except Exception as e:
+        print(e)
