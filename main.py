@@ -48,7 +48,7 @@ def menu():
             except Exception as e:
                 print(e)
             else:
-                print("Envelope cirado com sucesso\n")
+                print("Envelope criado com sucesso\n")
 
             input("Tecle enter para voltar ao menu.")
         

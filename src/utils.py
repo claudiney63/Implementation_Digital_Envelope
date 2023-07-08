@@ -1,9 +1,26 @@
 # Salva arquivo
 # Entrada: caminho para o arquivo, informações que serão salvas
 # Saída: nada
+
+import base64
+
+def encode_text_to_base64(file_path):
+    with open(file_path, 'r') as file:
+        text = file.read()
+        encoded_text = base64.b64encode(text.encode()).decode()
+        return encoded_text
+
+def has_txt_extension(file_path):
+    return file_path.lower().endswith('.txt')
+
 def save_file(file_path, data):
-    with open(file_path, 'wb') as file:
-        file.write(data)
+    # if has_txt_extension(file_path):
+    #     encoded_text = encode_text_to_base64(file_path)
+    #     with open(file_path, 'wb') as file:
+    #         file.write(encoded_text)
+    # else:
+        with open(file_path, 'wb') as file:
+            file.write(data)
 
 
 # Abre arquivo
