@@ -1,11 +1,29 @@
 import os
 
 def generate_rc4_key(key_length=16):
-    #key_length = 16  # Define o tamanho da chave em bytes
+    """
+    Gera uma chave aleatória para o algoritmo RC4.
+
+    Args:
+        key_length (int): O tamanho da chave em bytes. O padrão é 16.
+
+    Returns:
+        bytes: A chave gerada.
+    """
     key = os.urandom(key_length)  # Gera uma sequência de bytes aleatórios como chave
     return key
 
-def encrypt_decrypt(key, plaintext):
+def rc4(key, plaintext):
+    """
+    Criptografa ou descriptografa um texto usando o algoritmo RC4.
+
+    Args:
+        key (bytes): A chave para o algoritmo RC4.
+        plaintext (bytes): O texto a ser criptografado ou descriptografado.
+
+    Returns:
+        bytes: O texto criptografado ou descriptografado.
+    """
     S = list(range(256))
     j = 0
     out = []
@@ -25,16 +43,11 @@ def encrypt_decrypt(key, plaintext):
 
     return bytes(out)
 
-# def generate_key(size):
-#     return os.urandom(size)
-
 if __name__ == '__main__':
-
     rc4_key = generate_rc4_key()
     mensagem_original = "Essa é uma mensagem de teste para criptografia com RC4."
     plaintext = mensagem_original.encode()
     ciphertext = rc4(rc4_key, plaintext)
-    #ciphertext = bytes.fromhex('1ebd618d8ebdf84e8037de076f9e3eed3d8d9405d6abcaddf9de9eb5881f3993334e56e08338693a7065da0b3a6b228b4fb5088d5d5672ce')
     decrypted_text = rc4(rc4_key, ciphertext)
 
     # Converter a mensagem descriptografada de bytes para string
