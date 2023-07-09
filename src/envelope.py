@@ -25,7 +25,7 @@ def create_envelope(plain_file_path, public_key_path, algorithm):
         
         # Verificar se a chave pública é válida
         if not isinstance(public_key, RSAPublicKey):
-            raise Exception("A chave pública não é válida")
+            raise Exception("! A chave pública não é válida")
         
         if algorithm == 'AES':
             # Gerar uma chave simétrica AES de 32 bytes
@@ -49,7 +49,7 @@ def create_envelope(plain_file_path, public_key_path, algorithm):
             encrypted_file = rc4.encrypt_decrypt(simetric_key, plain_file)
         
         else:
-            raise Exception("Algoritmo simétrico não encontrado")
+            raise Exception("! Algoritmo simétrico não encontrado")
 
         # Criptografar a chave simétrica usando a chave pública do destinatário
         encrypted_key = rsa.encrypt(public_key, simetric_key)
@@ -59,8 +59,10 @@ def create_envelope(plain_file_path, public_key_path, algorithm):
         
         # Salvar o arquivo criptografado em um arquivo
         utils.save_file("encrypted_" + plain_file_path, encrypted_file)
+
+        print("\n> > Envelope criado com sucesso!\n")
     except Exception as e:
-        print("Erro ao criar envelope:", e)
+        print("! Erro ao criar envelope:", e)
 
 def open_envelope(encrypted_file_path, encrypted_key_path, private_key_path, algorithm):
     try:
@@ -86,15 +88,17 @@ def open_envelope(encrypted_file_path, encrypted_key_path, private_key_path, alg
         
         elif algorithm == 'RC4':
             # Descriptografar o arquivo usando a chave simétrica RC4
-            decrypted_file = rc4.decrypt(simetric_key, encrypted_file)
+            decrypted_file = rc4.encrypt_decrypt(simetric_key, encrypted_file)
 
         else:
-            raise Exception("Algoritmo simétrico não encontrado")
+            raise Exception("! Algoritmo simétrico não encontrado")
 
         # Salvar o arquivo descriptografado em um arquivo
         utils.save_file("decrypted_" + encrypted_file_path, decrypted_file)
+
+        print("\n> > Envelope aberto com sucesso!\n")
     except Exception as e:
-        print("Erro ao abrir envelope:", e)
+        print("! Erro ao abrir envelope:", e)
 
 if __name__ == '__main__':
     #cifrar

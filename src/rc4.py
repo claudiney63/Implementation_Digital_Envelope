@@ -16,7 +16,7 @@ def generate_rc4_key(key_length=16):
     except Exception as e:
         raise Exception("Erro ao gerar a chave RC4:", e)
 
-def rc4(key, plaintext):
+def encrypt_decrypt(key, plain_file):
     """
     Criptografa ou descriptografa um texto usando o algoritmo RC4.
 
@@ -39,7 +39,7 @@ def rc4(key, plaintext):
 
         # Pseudo-random generation algorithm (PRGA)
         i = j = 0
-        for char in plaintext:
+        for char in plain_file:
             i = (i + 1) % 256  # Atualiza o valor de i
             j = (j + S[i]) % 256  # Atualiza o valor de j
             S[i], S[j] = S[j], S[i]  # Troca os valores de S[i] e S[j] para embaralhar a lista S novamente

@@ -22,60 +22,49 @@ def menu():
     ]
     while True:
 
-        index = input("Selecione uma opção:\n" + "\n".join(options) + "\n")
+        index = input("Selecione uma opção:\n" + "\n".join(options) + "\n~ ")
         
         # Criar par de chaves
         if index == "0":
-            filepath = input("Informe em que pasta ficarão as chaves (deixar vazio para pasta atual):\n~ ")
-            prefixo = input("Informe o prefixo do arquivo (opcional):\n~ ")
+            filepath = input("\nCaminho de salvamento das chaves (deixar vazio para pasta atual):\n~ ")
+            prefixo = input("\nPrefixo do arquivo (opcional):\n~ ")
             
-            rsa.generate_key_pair(prefixo, filepath)
-            print(f"\nPar de chaves criado\n")
+            try:
+                rsa.generate_key_pair(prefixo, filepath)
+            except Exception as e:
+                print(e)
 
             input("Tecle enter para voltar ao menu.")
 
         # Criar envelope
         if index == "1":
-            #criar arquivo em claro
-			#arquivo da chave RSA pública
-			#algoritmo
-            plain_file_path = input("Informe o arquivo que deseja criptografar:\n~ ")
-            public_key_path = input("Informe a chave pública que deseja utilizar:\n~ ")
-            encrypt_algorithm = input("Qual algoritmo deseja usar: [AES, DES, RC4]:\n> ")
+            plain_file_path = input("\nCaminho para arquivo que deseja criptografar:\n~ ")
+            public_key_path = input("\nCaminho para a chave pública (.pem):\n~ ")
+            encrypt_algorithm = input("\nAlgoritmo simétrico: [AES, DES, RC4]:\n> ")
+            encrypt_algorithm = encrypt_algorithm.upper()
 
             try:
                 envelope.create_envelope(plain_file_path, public_key_path, encrypt_algorithm)
             except Exception as e:
                 print(e)
-            else:
-                print("Envelope criado com sucesso\n")
 
             input("Tecle enter para voltar ao menu.")
         
         # Abrir envelope
         if index == "2":
-            cipher_file_path = input("Informe o caminho até o arquivo criptografado do envelope:\n~ ")
-            cipher_key_path = input("Informe a chave criptografada:\n~ ")
-            cipher_file = utils.open_file(cipher_file_path)
-            cipher_key = utils.open_file(cipher_key_path)
-            decrypt_algorithm = input("Qual algoritmo deseja usar: [AES, DES, RC4]:\n> ")
-            private_key_path = input("Informe o local da chave privada:")
-            private_key = rsa.load_private_key(private_key_path)
             
-            envelope.open_envelope(cipher_file, cipher_key, decrypt_algorithm, private_key)
-                # is_valid = verify_envelop(
-                #     ph.abspath(file),
-                #     ph.abspath(signature_file),
-                #     ph.abspath(key_file),
-                #     hash_algorithm,
-                #     verbose=True
-                # )
-                # if is_valid:
-                #     print("O envelope é válido.")
-                # else:
-                #     print("O envelope não é válido.")
+            encrypted_file_path = input("\nCaminho para o arquivo criptografado:\n~ ")
+            encrypted_simetric_key_path = input("\nCaminho para a chave simétrica criptografada (.key):\n~ ")
+            private_key_path = input("\nCaminho para a chave privada (.pem):\n~ ")
+            decrypt_algorithm = input("\nAlgoritmo simétrico: [AES, DES, RC4]:\n> ")
+            decrypt_algorithm = decrypt_algorithm.upper()
 
-            input("Tecle enter para voltar ao menu.")
+            try:
+                envelope.open_envelope(encrypted_file_path, encrypted_simetric_key_path, private_key_path, decrypt_algorithm)
+            except Exception as e:
+                print(e)
+
+            input("Tecle enter para voltar ao menu.\n")
         
         # Sair
         if index == "3":

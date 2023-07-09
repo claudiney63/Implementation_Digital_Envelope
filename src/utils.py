@@ -2,6 +2,7 @@
 # Entrada: caminho para o arquivo, informações que serão salvas
 # Saída: nada
 
+import os
 import base64
 
 def encode_text_to_base64(file_path):
@@ -19,8 +20,8 @@ def save_file(file_path, data):
     #     with open(file_path, 'wb') as file:
     #         file.write(encoded_text)
     # else:
-        with open(file_path, 'wb') as file:
-            file.write(data)
+    with open(file_path, 'wb') as file:
+        file.write(data)
 
 
 # Abre arquivo
@@ -31,9 +32,15 @@ def open_file(file_path):
         file = open(file_path, 'rb')
         return file.read()
     except FileNotFoundError:
-        raise FileNotFoundError("Arquivo não encontrado")
+        raise FileNotFoundError("\n! ! ! Arquivo não encontrado ! ! !\n")
     except Exception as e:
         print(e)
+
+def file_exists(file_path):
+    if os.path.exists(file_path):
+        return True
+    else:
+        return False
     
 
 if __name__ == '__main__':

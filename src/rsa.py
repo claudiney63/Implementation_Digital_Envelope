@@ -42,8 +42,10 @@ def generate_key_pair(prefix = "", path = ""):
         # Salva a chave pública em um arquivo
         with open(path + public_file_name, 'wb') as f:
             f.write(pem_public_key)
+
+        print(f"\n> > Par de chaves criado com sucesso!\n")
     except Exception as e:
-        raise Exception("Erro ao gerar o par de chaves RSA:", e)
+        raise Exception("! Erro ao gerar o par de chaves RSA:", e)
 
 # Carrega a chave pública RSA
 # Entrada: caminho para o arquivo .pem
@@ -54,9 +56,9 @@ def load_public_key(public_key_path):
         with open(public_key_path, "rb") as f:
             key = serialization.load_pem_public_key(f.read())
     except FileNotFoundError:
-        raise FileNotFoundError("Arquivo da chave pública não encontrado")
+        raise FileNotFoundError("! Arquivo da chave pública não encontrado")
     except Exception as e:
-        raise Exception("Erro ao carregar a chave pública:", e)
+        raise Exception("! Erro ao carregar a chave pública:", e)
     return key
 
 # Carrega a chave privada RSA
@@ -72,10 +74,10 @@ def load_private_key(private_key_path, password=None):
             )
 
     except FileNotFoundError:
-        raise FileNotFoundError("Arquivo da chave privada não encontrado")
+        raise FileNotFoundError("! Arquivo da chave privada não encontrado")
     
     except Exception as e:
-        raise Exception("Erro ao carregar a chave privada:", e)
+        raise Exception("! Erro ao carregar a chave privada:", e)
     return key
 
 # Criptografa os dados usando a chave pública RSA
@@ -95,7 +97,7 @@ def encrypt(public_key, plain_file):
 
         return cipher_file
     except Exception as e:
-        raise Exception("Erro ao criptografar os dados:", e)
+        raise Exception("! Erro ao criptografar a chave simétrica:", e)
 
 # Descriptografa os dados usando a chave privada RSA
 # Entrada: chave privada, arquivo cifrado
@@ -114,7 +116,7 @@ def decrypt(private_key, cipher_file):
 
         return plain_file
     except Exception as e:
-        raise Exception("Erro ao descriptografar os dados:", e)
+        raise Exception("! Erro ao descriptografar a chave simétrica:", e)
 
 
 if __name__ == '__main__':
