@@ -22,7 +22,26 @@ python -m venv .venv
 .venv/Scripts/activate
 # Linux >
 source .venv/bin/activate
-
+```
 python -m pip install --upgrade pip
-
+```
+```
 pip install -r requirements.txt
+```
+Menu:
+```console
+Selecione uma opção:
+[1] - Criar um par de chaves RSA;
+[2] - Criar um envelope;
+[3] - Abrir envelope;
+[4] - Visualizar arquivos criptografados;
+[5] - Sair.
+~
+```
+Opção 1: Criar um par de chaves RSA
+
+Inserir o prefixo dos arquivos da chaves, por padrão (quando nenhum prefixo é inserido) elas tem os nomes (*public_key.pem* e *private_key.pem*), caso, por exemplo, seja inserido o prefixo "*ellem*", os nomes serão salvos como (*ellem_public_key.pem* e *ellem_private_key.pem*)
+```console
+Prefixo do arquivo (opcional):
+~
+```
