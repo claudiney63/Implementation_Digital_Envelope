@@ -17,31 +17,24 @@ from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
 
 def create_envelope(plain_file_path, public_key_path, algorithm):
     try:
-        # Carregar a chave pública do destinatário
-        public_key = rsa.load_public_key(public_key_path)
+        public_key = rsa.load_public_key(public_key_path) # Carregar a chave pública do destinatário
+    
+        plain_file = utils.open_file(plain_file_path) # Abrir o arquivo em claro
         
-        # Abrir o arquivo em claro
-        plain_file = utils.open_file(plain_file_path)
+        if not isinstance(public_key, RSAPublicKey): # Verificar se a chave pública é válida
+            raise Exception("! A chave pública não é válida!")
         
-        # Verificar se a chave pública é válida
-        if not isinstance(public_key, RSAPublicKey):
-            raise Exception("! A chave pública não é válida")
+        if algorithm == 'AES': # Se o algoritmo for AES:
+            simetric_key = aes.generate_key(32) # Gera uma chave simetrica de 32 bits
+
+            encrypted_file = aes.encrypt(simetric_key, plain_file) #criptografa o arquivo em claro usando a chave 
         
-        if algorithm == 'AES':
-            # Gerar uma chave simétrica AES de 32 bytes
-            simetric_key = aes.generate_key(32)
+        elif algorithm == 'DES': # Se o algoritmo for o DES:
+            simetric_key = des.generate_key(8) #Chave simetrica de 8 bytes
             
-            # Criptografar o arquivo em claro usando a chave simétrica AES
-            encrypted_file = aes.encrypt(simetric_key, plain_file)
+            encrypted_file = des.encrypt(simetric_key, plain_file) #criptografa o arquivo usando a chave DES
         
-        elif algorithm == 'DES':
-            # Gerar uma chave simétrica DES de 8 bytes
-            simetric_key = des.generate_key(8)
-            
-            # Criptografar o arquivo em claro usando a chave simétrica DES
-            encrypted_file = des.encrypt(simetric_key, plain_file)
-        
-        elif algorithm == 'RC4':
+        elif algorithm == 'RC4': # Se o algoritmo for o RC4:
             # Gerar uma chave simétrica RC4
             simetric_key = rc4.generate_rc4_key()
             
@@ -55,7 +48,8 @@ def create_envelope(plain_file_path, public_key_path, algorithm):
         encrypted_key = rsa.encrypt(public_key, simetric_key)
 
         # Salvar a chave criptografada em um arquivo
-        utils.save_file("encrypted_simetric_key.key", encrypted_key)
+        #utils.save_file("encrypted_simetric_key.key", encrypted_key)
+        utils.save_encrypted_key("encrypted_simetric_key.key", encrypted_key)
         
         # Salvar o arquivo criptografado em um arquivo
         utils.save_file("encrypted_" + plain_file_path, encrypted_file)
@@ -70,7 +64,8 @@ def open_envelope(encrypted_file_path, encrypted_key_path, private_key_path, alg
         private_key = rsa.load_private_key(private_key_path)
         
         # Carregar a chave simétrica criptografada
-        encrypted_key = utils.open_file(encrypted_key_path)
+        #encrypted_key = utils.open_file(encrypted_key_path)
+        encrypted_key = utils.open_encrypted_key(encrypted_key_path)
         
         # Carregar o arquivo criptografado
         encrypted_file = utils.open_file(encrypted_file_path)
@@ -99,6 +94,7 @@ def open_envelope(encrypted_file_path, encrypted_key_path, private_key_path, alg
         print("\n> > Envelope aberto com sucesso!\n")
     except Exception as e:
         print("! Erro ao abrir envelope:", e)
+        
 
 if __name__ == '__main__':
     #cifrar

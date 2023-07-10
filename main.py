@@ -8,36 +8,38 @@ import src.utils as utils
 
 def menu():
     menu = """
-0 - Criar um par de chaves RSA
-1 - Criar um envelope;
-2 - Abrir um envelope;
-3 - Sair
+1 - Criar um par de chaves RSA
+2 - Criar um envelope;
+3 - Abrir um envelope;
+4 - Visualizar arquivos criptografados;
+5 - Sair.
     """
     title = "Selecione uma opção:"
     options = [
-        "[0] - Criar um par de chaves RSA;",
-        "[1] - Criar um envelope;",
-        "[2] - Abrir envelope",
-        "[3] - Sair.",
+        "[1] - Criar um par de chaves RSA;",
+        "[2] - Criar um envelope;",
+        "[3] - Abrir envelope;",
+        "[4] - Visualizar arquivos criptografados;",
+        "[5] - Sair.",
     ]
     while True:
 
         index = input("Selecione uma opção:\n" + "\n".join(options) + "\n~ ")
         
         # Criar par de chaves
-        if index == "0":
-            filepath = input("\nCaminho de salvamento das chaves (deixar vazio para pasta atual):\n~ ")
+        if index == "1":
+            #filepath = input("\nCaminho de salvamento das chaves (deixar vaz2io para pasta atual):\n~ ")
             prefixo = input("\nPrefixo do arquivo (opcional):\n~ ")
             
             try:
-                rsa.generate_key_pair(prefixo, filepath)
+                rsa.generate_key_pair(prefixo)
             except Exception as e:
                 print(e)
 
             input("Tecle enter para voltar ao menu.")
 
         # Criar envelope
-        if index == "1":
+        if index == "2":
             plain_file_path = input("\nCaminho para arquivo que deseja criptografar:\n~ ")
             public_key_path = input("\nCaminho para a chave pública (.pem):\n~ ")
             encrypt_algorithm = input("\nAlgoritmo simétrico: [AES, DES, RC4]:\n> ")
@@ -51,8 +53,7 @@ def menu():
             input("Tecle enter para voltar ao menu.")
         
         # Abrir envelope
-        if index == "2":
-            
+        if index == "3":
             encrypted_file_path = input("\nCaminho para o arquivo criptografado:\n~ ")
             encrypted_simetric_key_path = input("\nCaminho para a chave simétrica criptografada (.key):\n~ ")
             private_key_path = input("\nCaminho para a chave privada (.pem):\n~ ")
@@ -66,8 +67,14 @@ def menu():
 
             input("Tecle enter para voltar ao menu.\n")
         
+        #Visualizar arquivos criptografados
+        if index == "4":
+            encrypted_file_path = input("\nCaminho para o arquivo criptografado que deseja visualizar:\n~ ")
+            print(utils.b64_encode(encrypted_file_path))
+            
+            input("\nTecle enter para voltar ao menu.\n")
         # Sair
-        if index == "3":
+        if index == "5":
             print("Programa finalizado.")
             return
 

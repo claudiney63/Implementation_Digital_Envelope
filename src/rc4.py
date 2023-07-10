@@ -46,24 +46,26 @@ def encrypt_decrypt(key, plain_file):
             out.append(char ^ S[(S[i] + S[j]) % 256])  # Realiza a operação XOR entre o caractere e um valor pseudoaleatório de S
 
         return bytes(out)  # Retorna o texto criptografado ou descriptografado em formato de bytes
-    except Exception as e:
-        raise Exception("Erro ao executar o algoritmo RC4:", e)
+    # except Exception as e:
+    #     raise Exception("Erro ao executar o algoritmo RC4:", e)
+    except:
+        raise Exception
 
-if __name__ == '__main__':
-    try:
-        rc4_key = generate_rc4_key()
-        mensagem_original = "Essa é uma mensagem de teste para criptografia com RC4."
-        plaintext = mensagem_original.encode()
-        ciphertext = rc4(rc4_key, plaintext)
-        decrypted_text = rc4(rc4_key, ciphertext)
+# if __name__ == '__main__':
+#     try:
+#         rc4_key = generate_rc4_key()
+#         mensagem_original = "Essa é uma mensagem de teste para criptografia com RC4."
+#         plaintext = mensagem_original.encode()
+#         ciphertext = rc4(rc4_key, plaintext)
+#         decrypted_text = rc4(rc4_key, ciphertext)
 
-        # Converter a mensagem descriptografada de bytes para string
-        mensagem_decifrada = decrypted_text.decode()
+#         # Converter a mensagem descriptografada de bytes para string
+#         mensagem_decifrada = decrypted_text.decode()
 
-        print("Mensagem Original:", mensagem_original)
-        print("Chave RC4:", rc4_key.hex())
-        print("Mensagem Criptografada:", ciphertext.hex())
-        print("Mensagem Decifrada:", mensagem_decifrada)
+#         print("Mensagem Original:", mensagem_original)
+#         print("Chave RC4:", rc4_key.hex())
+#         print("Mensagem Criptografada:", ciphertext.hex())
+#         print("Mensagem Decifrada:", mensagem_decifrada)
 
-    except Exception as e:
-        print("Erro:", e)
+#     except Exception as e:
+#         print("Erro:", e)

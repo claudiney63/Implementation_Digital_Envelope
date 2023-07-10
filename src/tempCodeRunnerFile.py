@@ -1,1 +1,1 @@
-encode_text_to_base64
+raise Exception("! Algoritmo simétrico não encontrado")

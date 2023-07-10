@@ -6,28 +6,26 @@ from cryptography.hazmat.primitives import serialization, hashes
 # Saída: nada
 def generate_key_pair(prefix = "", path = ""):
     try:
-        # Gera uma chave privada RSA com tamanho de chave de 2048 bits e expoente público de 65537
-        private_key = rsa.generate_private_key(
+        private_key = rsa.generate_private_key( # Chave privada RSA com tamanho de chave de 2048 bits
             public_exponent=65537,
             key_size=2048
         )
-        # Obtém a chave pública correspondente
-        public_key = private_key.public_key()
+        public_key = private_key.public_key() # Chave pública correspondente
 
-        # Serializa a chave privada no formato PEM sem criptografia
+        # Serializa a chave privada no formato PEM sem criptografia:
         pem_private_key = private_key.private_bytes(
             encoding=serialization.Encoding.PEM,
             format=serialization.PrivateFormat.PKCS8,
             encryption_algorithm=serialization.NoEncryption()
         )
 
-        # Serializa a chave pública no formato PEM
+        # Serializa a chave pública no formato PEM:
         pem_public_key = public_key.public_bytes(
             encoding=serialization.Encoding.PEM,
             format=serialization.PublicFormat.SubjectPublicKeyInfo
         )
 
-        # Define os nomes dos arquivos de chave a serem salvos
+        # Nomear aruivos das chaves salvas:
         if prefix == "":
             private_file_name = "private_key.pem"
             public_file_name = "public_key.pem"
@@ -35,12 +33,10 @@ def generate_key_pair(prefix = "", path = ""):
             private_file_name = prefix + "_private_key.pem"
             public_file_name = prefix + "_public_key.pem"
         
-        # Salva a chave privada em um arquivo
-        with open(path + private_file_name, 'wb') as f:
+        #Salvar as chaves:
+        with open(path + private_file_name, 'wb') as f: # Salva a chave privada em um arquivo
             f.write(pem_private_key)
-
-        # Salva a chave pública em um arquivo
-        with open(path + public_file_name, 'wb') as f:
+        with open(path + public_file_name, 'wb') as f: # Salva a chave pública em um arquivo
             f.write(pem_public_key)
 
         print(f"\n> > Par de chaves criado com sucesso!\n")
@@ -52,8 +48,7 @@ def generate_key_pair(prefix = "", path = ""):
 # Saída: chave pública
 def load_public_key(public_key_path):
     try:
-        # Carrega a chave pública a partir do arquivo PEM
-        with open(public_key_path, "rb") as f:
+        with open(public_key_path, "rb") as f: # Carrega a chave pública pelo .pem
             key = serialization.load_pem_public_key(f.read())
     except FileNotFoundError:
         raise FileNotFoundError("! Arquivo da chave pública não encontrado")
@@ -66,8 +61,7 @@ def load_public_key(public_key_path):
 # Saída: chave privada
 def load_private_key(private_key_path, password=None):
     try:
-        # Carrega a chave privada a partir do arquivo PEM
-        with open(private_key_path, "rb") as f:
+        with open(private_key_path, "rb") as f: # Carrega a chave privada pelo .pem
             key = serialization.load_pem_private_key(
                 f.read(),
                 password=password

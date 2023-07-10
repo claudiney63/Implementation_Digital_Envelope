@@ -34,8 +34,10 @@ def decrypt(key, ciphertext):
         plaintext = unpadder.update(padded_plaintext) + unpadder.finalize() # Remove o padding do texto plano descriptografado
 
         return plaintext
-    except Exception as e:
-        print("Erro durante a descriptografia:", e)
+    # except Exception as e:
+    #     print("Erro durante a descriptografia:", e)
+    except:
+        raise Exception
 
 def generate_key(size):
     try:
@@ -43,17 +45,6 @@ def generate_key(size):
     except Exception as e:
         print("Erro durante a geração da chave:", e)
     
-# Exemplo de uso
-if __name__ == '__main__':
-    try:
-        key = os.urandom(32)
-        plaintext = b'Texto para ser criptografado com AES'
 
-        ciphertext = encrypt(key, plaintext)
-        decrypted_text = decrypt(key, ciphertext)
-
-        print("Chave AES:", key)
-        print("Texto cifrado:", ciphertext)
-        print("Texto descriptografado:", decrypted_text)
-    except Exception as e:
-        print("Erro no exemplo de uso:", e)
+    
+    
