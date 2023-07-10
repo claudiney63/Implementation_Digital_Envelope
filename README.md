@@ -29,7 +29,10 @@ python -m venv .venv
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 ```
 # Linux >
+```
 source .venv/bin/activate
+```
+# Instalando Bibliotecas Necessarias >
 ```
 python -m pip install --upgrade pip
 ```
