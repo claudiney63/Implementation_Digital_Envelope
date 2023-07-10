@@ -19,7 +19,15 @@ python -m venv .venv
 
 # Ativação do ambinte virtual
 # Windows >
-.venv/Scripts/activate
+```
+python -m venv .venv
+```
+```
+.venv\Scripts\activate
+```
+```
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+```
 # Linux >
 source .venv/bin/activate
 ```
