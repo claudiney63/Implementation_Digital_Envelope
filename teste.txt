@@ -1,20 +1,9 @@
-oi, meu nome é vinicius
+Nome da Tarefa:
+Trabalho 01: Implementação
+Descrição:
+Tarefa para envio do trabalho (em grupo), correspondente a 2 (dois) pontos na primeira prova. Os componentes do grupo devem ser indicados ao enviar o trabalho no campo disponível no SIGAA.
 
-
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
-oi, meu nome é vinicius
+Arquivo do Professor:
+Baixar arquivo enviado pelo professor
+Período:
+Inicia em 23/06/2023 às 00h00 e finaliza em 10/07/2023 às 23h59
